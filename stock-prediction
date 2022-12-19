@@ -1,0 +1,23 @@
+import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
+
+# Load the data
+df = pd.read_csv('stock_data.csv')
+
+# Split the data into input features and target variable
+X = df.drop(columns=['Date', 'Close'])
+y = df['Close']
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Train the model
+model = RandomForestRegressor()
+model.fit(X_train, y_train)
+
+# Make predictions on the testing set
+y_pred = model.predict(X_test)
+
+# Calculate the mean absolute error
+mae = mean_absolute_error(y_test, y_pred)
+print(f'Mean Absolute Error: {mae:.2f}')
